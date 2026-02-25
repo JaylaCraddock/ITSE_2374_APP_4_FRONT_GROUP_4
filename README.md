@@ -5,4 +5,4 @@ APP_4 is a web application to be used for sending and receiving messages.
 
 Jayla Craddock - This is my first edit
 
-Sam Shah - This is my first edit
+Sunil Thakur - This is my first edit
