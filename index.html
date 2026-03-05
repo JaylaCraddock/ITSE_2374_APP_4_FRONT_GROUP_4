@@ -12,3 +12,13 @@
   </body>
 </html>
 
+<ul id="userList">
+  <li oncontextmenu="showMenu(event,1)">User 1</li>
+  <li oncontextmenu="showMenu(event,2)">User 2</li>
+</ul>
+
+<div id="menu" style="display:none; position:absolute; background:#eee; border:1px solid #000;">
+  <button onclick="addFavorite()">Add to Favorites</button>
+</div>
+
+<script type="module" src="./src/script.js"></script>
