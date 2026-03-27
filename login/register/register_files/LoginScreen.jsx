@@ -25,58 +25,59 @@ const LoginScreen = () => {
     };
 
     const handleSubmit = async (e) => {
-        e.preventDefault();
-        const newErrors = [];
+    e.preventDefault();
+    const newErrors = [];
 
-        if (!formData.email) {
-            newErrors.push('Email is required');
-        }
-        if (!formData.password) {
-            newErrors.push('Password is required');
-        }
+    if (!formData.email) {
+        newErrors.push('Email is required');
+    }
+    if (!formData.password) {
+        newErrors.push('Password is required');
+    }
 
-        if (newErrors.length > 0) {
-            setErrors(newErrors);
-            return;
-        }
+    if (newErrors.length > 0) {
+        setErrors(newErrors);
+        return;
+    }
 
-        setIsLoading(true);
+    setIsLoading(true);
 
-        try {
-            const response = await fetch(
-                'https://itse-2374-app-4-back-s4gw.onrender.com/api/users/login',
-                {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(formData),
-                }
-            );
-
-            const data = await response.json();
-
-            if (response.ok && response.status === 200) {
-                // Store user info in localStorage
-                localStorage.setItem('user', JSON.stringify(data.user));
-                localStorage.setItem('isLoggedIn', 'true');
-                
-                // Navigate to homepage
-                navigate('/homepage');
-            } else if (response.status === 400) {
-                setErrors(data.errors || ['Login failed']);
-            } else if (response.status === 401) {
-                setErrors(['Invalid email or password']);
-            } else {
-                setErrors(['An error occurred. Please try again later.']);
+    try {
+        const response = await fetch(
+            'https://itse-2374-app-4-back-s4gw.onrender.com/api/users/login',
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                credentials: 'include', // Add this line
+                body: JSON.stringify(formData),
             }
-        } catch (error) {
-            console.error('Error during login:', error);
-            setErrors(['Network error. Please check your connection and try again.']);
-        } finally {
-            setIsLoading(false);
+        );
+
+        const data = await response.json();
+
+        if (response.ok && response.status === 200) {
+            // Store user info in localStorage
+            localStorage.setItem('user', JSON.stringify(data.user));
+            localStorage.setItem('isLoggedIn', 'true');
+            
+            // Navigate to homepage
+            navigate('/homepage');
+        } else if (response.status === 400) {
+            setErrors(data.errors || ['Login failed']);
+        } else if (response.status === 401) {
+            setErrors(['Invalid email or password']);
+        } else {
+            setErrors(['An error occurred. Please try again later.']);
         }
-    };
+    } catch (error) {
+        console.error('Error during login:', error);
+        setErrors(['Network error. Please check your connection and try again.']);
+    } finally {
+        setIsLoading(false);
+    }
+};
 
     const handleGoToRegister = () => {
         navigate('/register');
