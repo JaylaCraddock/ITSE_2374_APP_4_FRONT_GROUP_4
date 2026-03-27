@@ -10,6 +10,14 @@ import { Navigate } from 'react-router-dom'
 import RegistrationScreen from './RegisterScreen.jsx'
 import LoginScreen from './LoginScreen.jsx'
 import EmailConfirm from './EmailConfirmation.jsx'
+import Homepage from './Homepage.jsx'
+
+//private route components to protect homepage
+const PrivateRoute = ({ element }) => {
+  const isLoggedIn = localStorage.getItem('isLoggedIn');
+  return isLoggedIn ? element: <Navigate to='/login' replace />;
+};
+
 
 
 createRoot(document.getElementById('root')).render(
@@ -28,6 +36,8 @@ createRoot(document.getElementById('root')).render(
         <Route path='/login' element={<LoginScreen />} />
       
         <Route path='/verify-email' element={<EmailConfirm />} />
+
+        <Route path='/homepage' element={<PrivateRoute element={<Homepage />} />} />
       </Routes>
     </Router>
   </StrictMode>,
