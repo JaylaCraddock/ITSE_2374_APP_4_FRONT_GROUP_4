@@ -44,14 +44,13 @@ const LoginScreen = () => {
 
    try {
         const response = await fetch(
-            'https://itse-2374-app-4-back-s4gw.onrender.com/api/users/login',
+            // CHANGE THIS URL TO A RELATIVE PATH
+            '/api/users/login',
             {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                // REMOVE OR COMMENT OUT THIS LINE
-                // credentials: 'include', 
                 body: JSON.stringify(formData),
             }
         );
