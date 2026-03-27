@@ -142,15 +142,15 @@ const handleSubmit = async (e) => {
 
   setIsLoading(true);
 
-  //Inserting interface definition
-  // from front-end and back-end using POST
-  // Inside RegisterScreen.jsx -> handleSubmit
+ // Will soon have Jose's backend to fix CORS policy 
+// to allow front-end to send a request to the backend
   try {
     const response = await fetch(
-      // CHANGE THIS TO THE RELATIVE PATH!
-      '/api/users/register',
+      // Use Jose's absolute URL so it triggers the CORS error
+      'https://itse-2374-app-4-back-s4gw.onrender.com/api/users/register',
       {
         method: 'POST',
+
         headers: {  
           'Content-Type': 'application/json',
         },
@@ -184,14 +184,20 @@ const handleSubmit = async (e) => {
       setErrors(['An error occurred. Please try again later.']);
     }
 
-    //Catch statements
-  } catch (error) {
-    console.error('Error during registration:', error);
-    setErrors(['Network error. Please check your connection and try again.']);
-
-  } finally {
-    setIsLoading(false);
-  } 
+ } catch (error) {
+        console.error('Error during request:', error);
+        
+        // Check if the error is likely a CORS/Network issue
+        if (error.name === 'TypeError' && error.message === 'Failed to fetch') {
+            setErrors([
+                'Unable to connect to the server due to a CORS policy restriction. This will be resolved in the next backend release.'
+            ]);
+        } else {
+            setErrors(['An unexpected network error occurred. Please try again.']);
+        }
+    } finally {
+        setIsLoading(false);
+    }
   
 
 };

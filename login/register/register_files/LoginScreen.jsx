@@ -50,19 +50,21 @@ const LoginScreen = () => {
 
     setIsLoading(true);
 
-   try {
+// Will soon have Jose's backend to fix CORS policy 
+// to allow front-end to send a request to the backend
+  try {
         const response = await fetch(
-            // CHANGE THIS URL TO A RELATIVE PATH
-            '/api/users/login',
+            'https://itse-2374-app-4-back-s4gw.onrender.com/api/users/login',
             {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
+               
                 body: JSON.stringify(formData),
             }
         );
-
+        
         const data = await response.json();
 
         if (response.ok && response.status === 200) {
@@ -80,8 +82,16 @@ const LoginScreen = () => {
             setErrors(['An error occurred. Please try again later.']);
         }
     } catch (error) {
-        console.error('Error during login:', error);
-        setErrors(['Network error. Please check your connection and try again.']);
+        console.error('Error during request:', error);
+        
+        // Check if the error is likely a CORS/Network issue
+        if (error.name === 'TypeError' && error.message === 'Failed to fetch') {
+            setErrors([
+                'Unable to connect to the server due to a CORS policy restriction. This will be resolved in the next backend release.'
+            ]);
+        } else {
+            setErrors(['An unexpected network error occurred. Please try again.']);
+        }
     } finally {
         setIsLoading(false);
     }
