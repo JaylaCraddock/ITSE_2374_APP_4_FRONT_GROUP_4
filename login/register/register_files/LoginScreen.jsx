@@ -1,10 +1,18 @@
 //FOR USER STORY #3 - A user logs in using an email address and password created during registration. 
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const LoginScreen = () => {
     const navigate = useNavigate();
+    // 2. Add this useEffect block
+    useEffect(() => {
+        const isLoggedIn = localStorage.getItem('isLoggedIn');
+        if (isLoggedIn === 'true') {
+            // If they are already logged in, send them straight to the homepage
+            navigate('/homepage');
+        }
+    }, [navigate]);
     const [formData, setFormData] = useState({
         email: '',
         password: '',

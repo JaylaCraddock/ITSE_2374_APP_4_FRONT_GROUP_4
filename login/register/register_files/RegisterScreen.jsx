@@ -1,7 +1,7 @@
 
 // ALSO MENTION USING JOSE'S BACKEND RENDER
 // import { useState } from 'react'
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'
 
 
@@ -21,6 +21,14 @@ const [isLoading, setIsLoading] = useState(false);
 
 //For switching from registration to login screen
 const navigate = useNavigate();
+
+useEffect(() => {
+      const isLoggedIn = localStorage.getItem('isLoggedIn');
+      if (isLoggedIn === 'true') {
+          navigate('/homepage');
+      }
+  }, [navigate]);
+
 
 // Validation functions
 
@@ -136,10 +144,11 @@ const handleSubmit = async (e) => {
 
   //Inserting interface definition
   // from front-end and back-end using POST
+  // Inside RegisterScreen.jsx -> handleSubmit
   try {
     const response = await fetch(
-      'https://itse-2374-app-4-back-s4gw.onrender.com/api/users/register',
-
+      // CHANGE THIS TO THE RELATIVE PATH!
+      '/api/users/register',
       {
         method: 'POST',
         headers: {  
