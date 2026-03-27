@@ -42,7 +42,7 @@ const LoginScreen = () => {
 
     setIsLoading(true);
 
-    try {
+   try {
         const response = await fetch(
             'https://itse-2374-app-4-back-s4gw.onrender.com/api/users/login',
             {
@@ -50,7 +50,8 @@ const LoginScreen = () => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                credentials: 'include', // Add this line
+                // REMOVE OR COMMENT OUT THIS LINE
+                // credentials: 'include', 
                 body: JSON.stringify(formData),
             }
         );
