@@ -1,29 +1,54 @@
 import React, { useState } from "react";
 
 function UserList() {
-  const users = ["User 1", "User 2", "User 3"];
+  const users = ["User 1", "User 2"];
 
   const [favorites, setFavorites] = useState([]);
   const [blocked, setBlocked] = useState([]);
 
+  // Add to Favorites
   const addToFavorites = (user) => {
     if (favorites.includes(user)) {
-      alert(user + " already in favorites");
+      alert(user + " is already in favorites");
       return;
     }
 
     setFavorites([...favorites, user]);
+    alert(user + " added to favorites");
   };
 
+  // Block User
   const blockUser = (user) => {
     if (blocked.includes(user)) {
-      alert(user + " already blocked");
+      alert(user + " is already blocked");
       return;
     }
 
-    setBlocked([...blocked, user]);
+    // 🔹 Simulating backend API using professor API
+    fetch("https://db-conn-email.onrender.com/users", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: user,
+        email: user.toLowerCase().replace(" ", "") + "@test.com",
+        password: "Test123"
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setBlocked([...blocked, user]);
+        alert(user + " blocked successfully");
+      })
+      .catch((err) => {
+        console.error(err);
+        alert("Server error");
+      });
   };
 
+  // Right-click handler
   const handleRightClick = (event, user) => {
     event.preventDefault();
 
@@ -32,11 +57,17 @@ function UserList() {
     );
 
     if (action === "1") {
-      addToFavorites(user);
+      const confirmAdd = window.confirm("Add " + user + " to Favorites?");
+      if (confirmAdd) {
+        addToFavorites(user);
+      }
     }
 
     if (action === "2") {
-      blockUser(user);
+      const confirmBlock = window.confirm("Block " + user + "?");
+      if (confirmBlock) {
+        blockUser(user);
+      }
     }
   };
 
@@ -49,7 +80,7 @@ function UserList() {
           <li
             key={index}
             onContextMenu={(event) => handleRightClick(event, user)}
-            style={{ cursor: "pointer", margin: "5px" }}
+            style={{ cursor: "pointer" }}
           >
             {user}
           </li>
@@ -57,7 +88,6 @@ function UserList() {
       </ul>
 
       <h2>Favorites</h2>
-
       <ul>
         {favorites.map((fav, index) => (
           <li key={index}>{fav}</li>
@@ -65,7 +95,6 @@ function UserList() {
       </ul>
 
       <h2>Blocked Users</h2>
-
       <ul>
         {blocked.map((user, index) => (
           <li key={index}>{user}</li>

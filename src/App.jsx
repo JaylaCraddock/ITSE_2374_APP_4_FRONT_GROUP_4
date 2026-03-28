@@ -3,7 +3,7 @@ import UserList from "./UserList";
 function App() {
   return (
     <div>
-      <h1>User Story #6 - Add to Favorites</h1>
+      <h1>User Story #7 - Block User implemented</h1>
       <UserList />
     </div>
   );
