@@ -2,27 +2,72 @@ import React, { useState } from "react";
 
 function UserList() {
   const users = ["User 1", "User 2"];
-  const [favorites, setFavorites] = useState([]);
 
+  const [favorites, setFavorites] = useState([]);
+  const [blocked, setBlocked] = useState([]);
+
+  // Add to Favorites
   const addToFavorites = (user) => {
     if (favorites.includes(user)) {
       alert(user + " is already in favorites");
       return;
     }
-  
+
     setFavorites([...favorites, user]);
     alert(user + " added to favorites");
   };
-  
-  const handleRightClick = (event, user) => {
-    event.preventDefault(); // prevents browser default menu
 
-    const confirmAdd = window.confirm(
-      "Add " + user + " to Favorites?"
+  // Block User
+  const blockUser = (user) => {
+    if (blocked.includes(user)) {
+      alert(user + " is already blocked");
+      return;
+    }
+
+    // 🔹 Simulating backend API using professor API
+    fetch("https://db-conn-email.onrender.com/users", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: user,
+        email: user.toLowerCase().replace(" ", "") + "@test.com",
+        password: "Test123"
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setBlocked([...blocked, user]);
+        alert(user + " blocked successfully");
+      })
+      .catch((err) => {
+        console.error(err);
+        alert("Server error");
+      });
+  };
+
+  // Right-click handler
+  const handleRightClick = (event, user) => {
+    event.preventDefault();
+
+    const action = window.prompt(
+      "Type 1 for Add to Favorites\nType 2 for Block User"
     );
 
-    if (confirmAdd) {
-      addToFavorites(user);
+    if (action === "1") {
+      const confirmAdd = window.confirm("Add " + user + " to Favorites?");
+      if (confirmAdd) {
+        addToFavorites(user);
+      }
+    }
+
+    if (action === "2") {
+      const confirmBlock = window.confirm("Block " + user + "?");
+      if (confirmBlock) {
+        blockUser(user);
+      }
     }
   };
 
@@ -34,9 +79,7 @@ function UserList() {
         {users.map((user, index) => (
           <li
             key={index}
-            onContextMenu={(event) =>
-              handleRightClick(event, user)
-            }
+            onContextMenu={(event) => handleRightClick(event, user)}
             style={{ cursor: "pointer" }}
           >
             {user}
@@ -45,10 +88,16 @@ function UserList() {
       </ul>
 
       <h2>Favorites</h2>
-
       <ul>
         {favorites.map((fav, index) => (
           <li key={index}>{fav}</li>
+        ))}
+      </ul>
+
+      <h2>Blocked Users</h2>
+      <ul>
+        {blocked.map((user, index) => (
+          <li key={index}>{user}</li>
         ))}
       </ul>
     </div>
