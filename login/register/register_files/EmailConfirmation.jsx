@@ -1,8 +1,15 @@
+// Author - Jayla Craddock 
+// Date - 3/30/26
+// Description - The purpose of this page is to take users to the status of their confirmation from the 
+// link for their registration.
 
+
+//This is for user story #2 - An email notification is sent on registration. A user confirms the registration by clicking on a link in the email.
 
 import React, { useState, useEffect } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 
+//Arrow function for email confirmation
 const EmailConfirm = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
@@ -83,6 +90,7 @@ const EmailConfirm = () => {
     navigate('/login');
   };
 
+  //What the user sees after clicking on the link
   return (
     <div>
       <h1>Email Verification</h1>

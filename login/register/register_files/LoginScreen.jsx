@@ -1,11 +1,22 @@
-//FOR USER STORY #3 - A user logs in using an email address and password created during registration. 
+// Author - Jayla Craddock 
+// Date - 3/30/26
+// Description - The purpose of this page is to allow 
+// users to login with their email and password after
+// successfully registering and confirming their account
+
+//For user story #3 - A user logs in using an email address and password created during registration. 
+
+//Currently not able to have the login feature
+// fully function as I need to wait for the next iteration
+// for the backend to fix the CORS policy
 
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
+// Arrow function for login screen
 const LoginScreen = () => {
     const navigate = useNavigate();
-    // 2. Add this useEffect block
+    //  Add this useEffect block
     useEffect(() => {
         const isLoggedIn = localStorage.getItem('isLoggedIn');
         if (isLoggedIn === 'true') {
@@ -18,6 +29,7 @@ const LoginScreen = () => {
         password: '',
     });
     
+    // Send back error messages
     const [errors, setErrors] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
 
@@ -101,6 +113,7 @@ const LoginScreen = () => {
         navigate('/register');
     };
 
+    // What the user sees on the page
     return (
         <div>
             <h1>User Login</h1>
