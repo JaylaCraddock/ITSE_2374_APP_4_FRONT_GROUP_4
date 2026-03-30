@@ -1,25 +1,32 @@
 
-// ALSO MENTION USING JOSE'S BACKEND RENDER
-// import { useState } from 'react'
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom'
-
+// Author - Jayla Craddock 
+// Date - 3/30/26
+// Description - The purpose of this page is to allow 
+// users to register with their name, email and password.
 
 // This is the start of User Story #1 - where A new user registers with the web app by providing name,  email, and password. A name must be between 2 and 20 alpahnumeric characters. Email must have a valid email format. A password must be between 8 and 20 characters long and must contain at least one uppercase letter, one lowercase letter, and one number. 
 
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom'
+
+//Arrow function creation for registration screen that includes
+// name, email and password
 const RegistrationScreen = () => {
+  //useState hok stores the form input values (name, email and password)
+  // to allow React to re-render when the form data changes
+  // State is a mutable data structure that triggers re-renders when updated
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     password: '',
   });
 
-//CHECKED
+//Setting the error, loading and success messages using useState hooks
 const [errors, setErrors] = useState([]);
 const [successMessage, setSuccessMessage] = useState('');
 const [isLoading, setIsLoading] = useState(false);
 
-//For switching from registration to login screen
+//Uses useNavigate and use Effect hook for switching from registration to login screen
 const navigate = useNavigate();
 
 useEffect(() => {
@@ -30,12 +37,10 @@ useEffect(() => {
   }, [navigate]);
 
 
-// Validation functions
+// Validation arrow functions
 
-//Describe as well how I use regex and what that is just
-// in case the professor askes
 //First is validating name and making sure that it is
-// at least 2-20 letters long
+// at least 2-20 letters long 
 const validateName = (name) => {
   //Regex allows letters and spaces
   // for users with 2 first names or want to include
@@ -54,7 +59,7 @@ const validateEmail = (email) => {
 };
 
 //Validation for password
-//make sure password is within INSERT VALIDATION AMOUNT
+//make sure password is within insert validation amount
 const validatePassword = (password) => {
   if(password.length < 8 || password.length > 20) {
     return false;
@@ -65,30 +70,37 @@ const validatePassword = (password) => {
   const hasNumber = /[0-9]/.test(password);
   return hasUppercase && hasLowerCase && hasNumber;
 };
-//checked
 
+//Quick explanation of what regex is - 
+// Regex or regular expression refers to using standard JavaScript RegExp objects that is used commonly to perform validation, search, filtering and data extraction.
 
 //Client-side validation
-//Actual form for register
+//Actual form for register that uses if statements, functions and arrays
+// to aid the creation of a new user registration
 const validateForm = () => {
   //Array for collecting 
   // multiple error messages
   const newErrors = [];
 
+  // If statement for validating name.
   if (!formData.name) {
+    // Send error to user for them to see
     newErrors.push('Name is required');
   } else if (!validateName(formData.name)) {
     newErrors.push('name must be 2-20 alphanumeric characters');
   }
 
-  //CHECKED
+// If statement for validating email
   if(!formData.email) {
+        // Send error to user for them to see
     newErrors.push('Email is required');
   } else if (!validateEmail(formData.email)) {
     newErrors.push('Email format is invalid');
   }
 
+  // If statement for validating password
   if (!formData.password) {
+        // Send error to user for them to see
     newErrors.push('Password is required');
   } else if (!validatePassword(formData.password)) {
     if (formData.password.length < 8 || formData.password.length > 20) {
@@ -105,17 +117,14 @@ const validateForm = () => {
     }
   }
 
-  //Returns error messages from array? 
-  //Def need to double check that
+  //Returns error messages from array 
   setErrors(newErrors);
   return newErrors.length === 0;
 
 };
 
-//SECTION CHECKED COMPLETELY ABOVE
 
 // Handle input changes
-//Def need to write notes on what's happening here
 const handleChange = (e) => {
   const { name, value } = e.target;
   setFormData((prevData) => ({
@@ -128,21 +137,21 @@ const handleChange = (e) => {
   }
 };
 
-//Handle form submission
-//using Jose's backend to render
-// also prob need to write notes on what's happening here
+//Handle form submission using an arrow function
 const handleSubmit = async (e) => {
   e.preventDefault();
+  //Send message to user letting them know that their 
+  // account has been successfully registered!
   setSuccessMessage('');
 
-  //Validate form
+  //If statement for validating form submission
   if(!validateForm()){
     return;
   }
 
   setIsLoading(true);
 
- // Will soon have Jose's backend to fix CORS policy 
+ //Try and catch statements as soon I will have Jose's backend to fix CORS policy 
 // to allow front-end to send a request to the backend
   try {
     const response = await fetch(
@@ -160,6 +169,8 @@ const handleSubmit = async (e) => {
 
     const data = await response.json();
 
+    //Message that contains the success message as well as the next
+    // step. This is using Jose's backend for the messages to be displayed.
     if(response.ok && response.status === 201) {
       //Success message
       setSuccessMessage(
@@ -179,8 +190,7 @@ const handleSubmit = async (e) => {
       //Email already exists message
       setErrors(['This email is already registered. Please use a different email or try logging in.']);
     } else {
-      // Other errors
-      //Maybe specify later on?
+      // Other errors if the other error messages do not apply from above
       setErrors(['An error occurred. Please try again later.']);
     }
 
@@ -203,13 +213,14 @@ const handleSubmit = async (e) => {
 };
 
 
-//For switching to login
+//Arrow function for switching to login
 const handleGoToLogin = () => {
   navigate('/login')
 };
 
 
 //Display registration form
+// What the user will see on the website
 return (
   <div>
     <h1>User Registration</h1>

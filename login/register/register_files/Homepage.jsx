@@ -1,3 +1,12 @@
+// Author - Jayla Craddock 
+// Date - 3/30/26
+// Description - The purpose of this page is to allow 
+// users to access the homepage.
+
+//For user story #3 - A user logs in using an email address and password created during registration. 
+
+//Currently not able to have the login feature
+// fully function as I need to wait for the next iteration for the backend to fix the CORS policy block
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -5,6 +14,7 @@ const Homepage = () => {
     const navigate = useNavigate();
     const [user, setUser] = useState(null);
 
+    // Using useEffect hook to see if the user is logged in as well as a if statement whether or not to let them through to the homepage
     useEffect(() =>{
         //Check if user is logged in
         const isLoggedIn = localStorage.getItem('isLoggedIn');
@@ -33,6 +43,7 @@ const Homepage = () => {
         return <div>Loading...</div>;
      }
 
+     //What the user sees on the homepage
      return (
         <div>
             <div style={{ position: 'absolute', top: '10px', right: '10px' }}>
