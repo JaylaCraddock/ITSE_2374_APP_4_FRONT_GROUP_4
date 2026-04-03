@@ -13,7 +13,7 @@ function UserList() {
     return;
   }
 
-  fetch("https://db-conn-email.onrender.com/users", {
+  fetch("https://db-conn-email.onrender.com/users_sam", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
