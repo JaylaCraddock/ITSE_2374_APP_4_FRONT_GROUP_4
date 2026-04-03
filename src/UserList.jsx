@@ -8,14 +8,32 @@ function UserList() {
 
   // Add to Favorites
   const addToFavorites = (user) => {
-    if (favorites.includes(user)) {
-      alert(user + " is already in favorites");
-      return;
-    }
+  if (favorites.includes(user)) {
+    alert(user + " is already in favorites");
+    return;
+  }
 
-    setFavorites([...favorites, user]);
-    alert(user + " added to favorites");
-  };
+  fetch("https://db-conn-email.onrender.com/users", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      user_id: 1,
+      favorite_id: user === "User 1" ? 1 : 2,
+    }),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data);
+      setFavorites([...favorites, user]);
+      alert(user + " added to favorites");
+    })
+    .catch((err) => {
+      console.error(err);
+      alert("Backend not running error occurred.");
+    });
+};
 
   // Block User
   const blockUser = (user) => {
