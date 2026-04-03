@@ -43,7 +43,7 @@ function UserList() {
     }
 
     // 🔹 Simulating backend API using professor API
-    fetch("https://db-conn-email.onrender.com/users_sam", {
+    fetch("https://db-conn-email.onrender.com/users", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
