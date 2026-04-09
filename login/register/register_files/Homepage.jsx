@@ -50,6 +50,20 @@ const Homepage = () => {
                 <h2>Hello, {user.name}!</h2>
             </div>
 
+            {/* Section soon where the posting section
+            is for handling the messages */}
+
+            {/* <button onClick={handlePostButton}>Post</button>
+
+            <div id='listOfUsers'>
+                <ul>
+                    <li>Jane Doe</li>
+                    <li>Michael Peterson</li>
+                    <li>Lisa Henderson</li>
+                    <li>Robert Lin</li>
+                </ul>
+            </div> */}
+
             <div style={{ marginTop: '60px' }}>
                 <h1>Welcome to your homepage</h1>
                 <p><strong>Email:</strong> {user.email}</p>
