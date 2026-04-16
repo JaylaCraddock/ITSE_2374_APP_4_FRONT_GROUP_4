@@ -8,6 +8,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'
+import './Decorations.css';
 
 //Arrow function creation for registration screen that includes
 // name, email and password

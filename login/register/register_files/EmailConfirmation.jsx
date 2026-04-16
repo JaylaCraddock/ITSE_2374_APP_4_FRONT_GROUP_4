@@ -8,6 +8,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
+import './Decorations.css';
 
 //Arrow function for email confirmation
 const EmailConfirm = () => {

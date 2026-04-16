@@ -1,22 +1,22 @@
 // Author - Jayla Craddock 
-// Date - 3/30/26
+// Date - 4/15/26
 // Description - The purpose of this page is to allow 
 // users to login with their email and password after
 // successfully registering and confirming their account
 
-//For user story #3 - A user logs in using an email address and password created during registration. 
-
-//Currently not able to have the login feature
-// fully function as I need to wait for the next iteration
-// for the backend to fix the CORS policy
+// For user story #3 - A user logs in using an email address and password created during registration. 
+// Backend now handles session management with secure HTTP-only cookies
 
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import './Decorations.css';
 
 // Arrow function for login screen
 const LoginScreen = () => {
     const navigate = useNavigate();
-    //  Add this useEffect block
+    
+    // useEffect hook: runs when component loads
+    // Checks if user is already logged in and redirects to homepage
     useEffect(() => {
         const isLoggedIn = localStorage.getItem('isLoggedIn');
         if (isLoggedIn === 'true') {
@@ -24,103 +24,152 @@ const LoginScreen = () => {
             navigate('/homepage');
         }
     }, [navigate]);
+
+    // useState hook: stores form input values (email and password)
+    // State allows React to re-render when form data changes
     const [formData, setFormData] = useState({
         email: '',
         password: '',
     });
     
-    // Send back error messages
+    // useState hook: stores validation error messages to display to user
+    // errors is array that collects all error messages
     const [errors, setErrors] = useState([]);
+    
+    // useState hook: tracks loading state while asynchronous API request is in progress
+    // isLoading is boolean flag to disable form inputs during API call
     const [isLoading, setIsLoading] = useState(false);
 
+    // Arrow function handleChange: executes when user types in input fields
+    // Updates formData state with new value and clears previous errors
     const handleChange = (e) => {
+        // Destructuring: extract 'name' and 'value' from event target object
         const { name, value } = e.target;
+        
+        // Call setFormData with callback arrow function to update state
+        // Functional state update pattern - takes previous state and returns new state
         setFormData((prevData) => ({
-            ...prevData,
-            [name]: value,
+            ...prevData,        // Spread operator (...) copies all existing form data
+            [name]: value,      // Bracket notation allows dynamic key assignment
         }));
+        
+        // Conditional: clear errors when user starts typing (they're correcting input)
         if (errors.length > 0) {
             setErrors([]);
         }
     };
 
+    // Arrow function handleSubmit: asynchronous function that processes form submission
+    // 'async' keyword allows use of 'await' for asynchronous operations (API calls)
+    // Validates form locally first, then sends credentials to backend API
     const handleSubmit = async (e) => {
-    e.preventDefault();
-    const newErrors = [];
-
-    if (!formData.email) {
-        newErrors.push('Email is required');
-    }
-    if (!formData.password) {
-        newErrors.push('Password is required');
-    }
-
-    if (newErrors.length > 0) {
-        setErrors(newErrors);
-        return;
-    }
-
-    setIsLoading(true);
-
-// Will soon have Jose's backend to fix CORS policy 
-// to allow front-end to send a request to the backend
-  try {
-        const response = await fetch(
-            'https://itse-2374-app-4-back-s4gw.onrender.com/api/users/login',
-            {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-               
-                body: JSON.stringify(formData),
-            }
-        );
+        e.preventDefault(); // Prevent default form submission page reload behavior
         
-        const data = await response.json();
+        // Initialize empty array to collect validation error messages
+        const newErrors = [];
 
-        if (response.ok && response.status === 200) {
-            // Store user info in localStorage
-            localStorage.setItem('user', JSON.stringify(data.user));
-            localStorage.setItem('isLoggedIn', 'true');
+        // Conditional validation: check if email is empty
+        if (!formData.email) {
+            newErrors.push('Email is required');
+        }
+        
+        // Conditional validation: check if password is empty
+        if (!formData.password) {
+            newErrors.push('Password is required');
+        }
+
+        // If validation errors exist, display them and return early
+        if (newErrors.length > 0) {
+            setErrors(newErrors);
+            return; // Early return - stops execution if validation fails
+        }
+
+        // Call setIsLoading(true) to show loading state while API request is in progress
+        setIsLoading(true);
+
+        try {
+            // Try block executes code that might throw an error
+            // 'await' keyword pauses execution until fetch Promise is resolved
+            // fetch() method makes HTTP request to backend API endpoint
+            const response = await fetch(
+                'https://itse-2374-app-4-back-s4gw.onrender.com/api/users/login',
+                {
+                    method: 'POST',              // HTTP POST method for authentication
+                    headers: {
+                        'Content-Type': 'application/json', // HTTP header: tells server we're sending JSON
+                    },
+                    credentials: 'include',      // CRITICAL: tells browser to include session cookie in request
+                                                 // Browser automatically stores session_id cookie from response
+                    body: JSON.stringify(formData), // JSON.stringify() converts object to JSON string
+                }
+            );
             
-            // Navigate to homepage
-            navigate('/homepage');
-        } else if (response.status === 400) {
-            setErrors(data.errors || ['Login failed']);
-        } else if (response.status === 401) {
-            setErrors(['Invalid email or password']);
-        } else {
-            setErrors(['An error occurred. Please try again later.']);
-        }
-    } catch (error) {
-        console.error('Error during request:', error);
-        
-        // Check if the error is likely a CORS/Network issue
-        if (error.name === 'TypeError' && error.message === 'Failed to fetch') {
-            setErrors([
-                'Unable to connect to the server due to a CORS policy restriction. This will be resolved in the next backend release.'
-            ]);
-        } else {
-            setErrors(['An unexpected network error occurred. Please try again.']);
-        }
-    } finally {
-        setIsLoading(false);
-    }
-};
+            // 'await' pauses until response Promise resolves
+            // Parse JSON response from backend using .json() method
+            const data = await response.json();
 
+            // Conditional statement checks HTTP response status code
+            if (response.ok && response.status === 200) {
+                // 200 = HTTP status code for "OK" - successful login
+                // Backend returns user object with id, name, email, confirmed status, created_at
+                
+                // Store user info in localStorage for frontend reference
+                localStorage.setItem('user', JSON.stringify(data.user));
+                // Set flag indicating user is logged in
+                localStorage.setItem('isLoggedIn', 'true');
+                
+                // Note: Session cookie (session_id) is automatically stored by browser
+                // No need to manually save it - browser will send it in all future requests
+                // when credentials: 'include' is used in fetch options
+                
+                // Navigate to homepage using useNavigate hook
+                navigate('/homepage');
+            } else if (response.status === 400) {
+                // 400 = HTTP status code for "Bad Request" - validation error or invalid credentials
+                // Backend returns errors array with specific error messages
+                setErrors(data.errors || ['Email or password is incorrect']);
+            } else if (response.status === 500) {
+                // 500 = HTTP status code for "Internal Server Error" - database error
+                setErrors(['Server error. Please try again later.']);
+            } else {
+                // Fallback for any other error status codes
+                setErrors(['An error occurred. Please try again later.']);
+            }
+        } catch (error) {
+            // Catch block executes if try block throws error (network error, JSON parse error, etc.)
+            console.error('Error during login:', error);
+            
+            // Conditional checks if error is specifically a network/CORS issue
+            if (error.name === 'TypeError' && error.message === 'Failed to fetch') {
+                setErrors([
+                    'Unable to connect to the server. Please check your connection and try again.'
+                ]);
+            } else {
+                setErrors(['Network error. Please check your connection and try again.']);
+            }
+        } finally {
+            // Finally block executes regardless of success or error in try/catch
+            // Guaranteed cleanup - turn off loading state
+            setIsLoading(false);
+        }
+    };
+
+    // Arrow function handleGoToRegister: navigates to registration page
     const handleGoToRegister = () => {
         navigate('/register');
     };
 
-    // What the user sees on the page
+    // Return JSX: what the user sees on the login page
     return (
         <div>
             <h1>User Login</h1>
 
+            {/* Conditional rendering: Display error list ONLY if errors array has items */}
+            {/* Logical AND (&&) operator: if errors.length > 0 is true, render JSX after && */}
             {errors.length > 0 && (
                 <div role="alert">
                     <ul>
+                        {/* .map() array method: iterate through errors array and create JSX for each */}
                         {errors.map((error, index) => (
                             <li key={index}>{error}</li>
                         ))}
@@ -128,7 +177,9 @@ const LoginScreen = () => {
                 </div>
             )}
 
+            {/* Login form controlled by React state */}
             <form onSubmit={handleSubmit}>
+                {/* Email input field - controlled input */}
                 <div>
                     <label htmlFor="email">Email:</label>
                     <input 
@@ -138,10 +189,11 @@ const LoginScreen = () => {
                         value={formData.email}
                         onChange={handleChange}
                         placeholder="Enter your email"
-                        disabled={isLoading}
+                        disabled={isLoading} 
                     />
                 </div>
 
+                {/* Password input field - controlled input */}
                 <div>
                     <label htmlFor="password">Password:</label>
                     <input 
@@ -155,6 +207,8 @@ const LoginScreen = () => {
                     />
                 </div>
 
+                {/* Login button - shows loading text while API request in progress */}
+                {/* Ternary operator: condition ? trueValue : falseValue */}
                 <button type="submit" disabled={isLoading}>
                     {isLoading ? 'Logging in...' : 'Login'}
                 </button>

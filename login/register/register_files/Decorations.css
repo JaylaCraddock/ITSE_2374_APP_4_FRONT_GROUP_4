@@ -1,2 +1,464 @@
 /* This document is used for adding style and decoration for 
 all pages. */
+
+/* Author - Jayla Craddock
+   Date - 4/15/26
+   Description - Minimalist business-style CSS for login/registration app
+   Uses clean colors, proper spacing, and professional typography */
+
+/* ===== GLOBAL STYLES ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  color: #333;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* ===== CONTAINER STYLES ===== */
+#root {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+div[role="root"] {
+  width: 100%;
+}
+
+/* Main container padding */
+div > div:first-child {
+  padding: 40px 20px;
+}
+
+/* ===== TYPOGRAPHY ===== */
+h1 {
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 30px;
+  text-align: center;
+  letter-spacing: -0.5px;
+}
+
+h2 {
+  font-size: 1.8rem;
+  font-weight: 500;
+  color: #34495e;
+  margin-bottom: 20px;
+}
+
+h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 10px;
+}
+
+p {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 15px;
+}
+
+small {
+  font-size: 0.85rem;
+  color: #7f8c8d;
+  display: block;
+  margin-top: 5px;
+}
+
+label {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #2c3e50;
+  margin-bottom: 8px;
+  display: block;
+}
+
+/* ===== FORM STYLES ===== */
+form {
+  background: white;
+  padding: 40px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  max-width: 450px;
+  margin: 0 auto 30px;
+}
+
+form > div {
+  margin-bottom: 20px;
+}
+
+input,
+textarea {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-family: inherit;
+  transition: all 0.3s ease;
+  background-color: #fafbfc;
+}
+
+input:focus,
+textarea:focus {
+  outline: none;
+  border-color: #3498db;
+  background-color: #fff;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+}
+
+input:disabled,
+textarea:disabled {
+  background-color: #ecf0f1;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+input[type="email"],
+input[type="password"],
+input[type="text"] {
+  font-size: 1rem;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+/* ===== BUTTON STYLES ===== */
+button {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Primary Button (Submit/Send) */
+button[type="submit"] {
+  background-color: #3498db;
+  color: white;
+  width: 100%;
+  margin-top: 10px;
+  box-shadow: 0 2px 4px rgba(52, 152, 219, 0.3);
+}
+
+button[type="submit"]:hover:not(:disabled) {
+  background-color: #2980b9;
+  box-shadow: 0 4px 8px rgba(52, 152, 219, 0.4);
+  transform: translateY(-2px);
+}
+
+button[type="submit"]:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+button[type="submit"]:disabled {
+  background-color: #95a5a6;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* Secondary Button (Register/Login navigation) */
+button[type="button"] {
+  background-color: #95a5a6;
+  color: white;
+  width: 100%;
+  margin-top: 10px;
+  box-shadow: 0 2px 4px rgba(149, 165, 166, 0.3);
+}
+
+button[type="button"]:hover:not(:disabled) {
+  background-color: #7f8c8d;
+  box-shadow: 0 4px 8px rgba(149, 165, 166, 0.4);
+  transform: translateY(-2px);
+}
+
+button[type="button"]:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+button[type="button"]:disabled {
+  background-color: #bdc3c7;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* Success Button (Send Message) */
+button[style*="background-color: #4CAF50"] {
+  background-color: #27ae60 !important;
+  color: white;
+  box-shadow: 0 2px 4px rgba(39, 174, 96, 0.3);
+}
+
+button[style*="background-color: #4CAF50"]:hover:not(:disabled) {
+  background-color: #229954 !important;
+  box-shadow: 0 4px 8px rgba(39, 174, 96, 0.4);
+  transform: translateY(-2px);
+}
+
+/* Danger Button (Cancel/Logout) */
+button[style*="background-color: #f44336"] {
+  background-color: #e74c3c !important;
+  color: white;
+  box-shadow: 0 2px 4px rgba(231, 76, 60, 0.3);
+}
+
+button[style*="background-color: #f44336"]:hover:not(:disabled) {
+  background-color: #c0392b !important;
+  box-shadow: 0 4px 8px rgba(231, 76, 60, 0.4);
+  transform: translateY(-2px);
+}
+
+/* Button Container */
+div[style*="display: flex"] {
+  gap: 10px;
+}
+
+/* ===== ALERT/MESSAGE STYLES ===== */
+div[role="alert"] {
+  padding: 15px 20px;
+  border-radius: 6px;
+  margin-bottom: 20px;
+  border-left: 4px solid;
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Error Alert */
+div[role="alert"][style*="color: red"] {
+  background-color: #fadbd8;
+  border-left-color: #e74c3c;
+  color: #c0392b;
+}
+
+div[role="alert"][style*="color: red"] ul {
+  list-style-position: inside;
+}
+
+div[role="alert"][style*="color: red"] li {
+  margin-bottom: 8px;
+  color: #c0392b;
+}
+
+/* Success Alert */
+div[role="alert"][style*="color: green"] {
+  background-color: #d5f4e6;
+  border-left-color: #27ae60;
+  color: #229954;
+}
+
+div[role="alert"][style*="color: green"] p {
+  color: #229954;
+  margin: 0;
+}
+
+/* ===== LIST STYLES ===== */
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+ul li {
+  padding: 12px 15px;
+  border-bottom: 1px solid #ecf0f1;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+ul li:hover {
+  background-color: #f5f7fa;
+  padding-left: 20px;
+}
+
+ul li:last-child {
+  border-bottom: none;
+}
+
+/* User List Items */
+ul li[style*="cursor: pointer"] {
+  background-color: white;
+  margin-bottom: 8px;
+  border-radius: 6px;
+  border: 1px solid #ecf0f1;
+  border-bottom: 1px solid #ecf0f1;
+}
+
+ul li[style*="cursor: pointer"]:hover {
+  border-color: #3498db;
+  box-shadow: 0 2px 6px rgba(52, 152, 219, 0.15);
+}
+
+/* ===== MODAL/POPUP STYLES ===== */
+div[style*="position: fixed"][style*="background-color: rgba"] {
+  backdrop-filter: blur(4px);
+}
+
+div[style*="position: fixed"][style*="background-color: white"] {
+  background: white;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  animation: popIn 0.3s ease;
+}
+
+@keyframes popIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Context Menu Styling */
+div[style*="position: absolute"][style*="background-color: #fff"] {
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  z-index: 1000;
+}
+
+/* ===== CONVERSATION HISTORY ===== */
+div[style*="background-color: #f5f5f5"] {
+  background: #f8f9fa !important;
+  border: 1px solid #e9ecef !important;
+  border-radius: 6px;
+}
+
+div[style*="background-color: #e3f2fd"] {
+  background: #ecf7ff !important;
+  border-left: 3px solid #3498db;
+  border-radius: 4px;
+}
+
+/* ===== HOMEPAGE SPECIFIC ===== */
+div[style*="position: absolute"][style*="top: '10px'"] {
+  background: white;
+  padding: 15px 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+div[style*="marginTop: '60px'"] {
+  background: white;
+  padding: 40px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  margin: 60px auto 0;
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2rem;
+    margin-bottom: 25px;
+  }
+
+  form {
+    padding: 30px 20px;
+    max-width: 100%;
+  }
+
+  button {
+    padding: 10px 20px;
+    font-size: 0.95rem;
+  }
+
+  div[style*="marginTop: '60px'"] {
+    padding: 30px 20px;
+    margin: 30px 10px 0;
+  }
+
+  ul li {
+    padding: 10px 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+  }
+
+  form {
+    padding: 20px 15px;
+  }
+
+  button {
+    padding: 10px 15px;
+    font-size: 0.9rem;
+  }
+
+  div[style*="display: flex"] {
+    flex-direction: column;
+  }
+
+  div[style*="display: flex"] button {
+    width: 100%;
+  }
+}
+
+/* ===== SCROLLBAR STYLING ===== */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #bdc3c7;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #95a5a6;
+}
+
+/* ===== LOADING STATE ===== */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+button:disabled {
+  animation: pulse 1.5s ease-in-out infinite;
+}
