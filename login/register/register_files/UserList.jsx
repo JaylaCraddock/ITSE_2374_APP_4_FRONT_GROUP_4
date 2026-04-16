@@ -56,6 +56,8 @@ const UserList = () => {
             { id: 5, name: 'Sarah Johnson', email: 'sarah@email.com' },
         ];
 
+        
+
       // Simulate API delay (optional - makes it feel more realistic)
       // 'await' pauses execution for 500 milliseconds
       await new Promise(resolve => setTimeout(resolve, 500));
