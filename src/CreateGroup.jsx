@@ -2,8 +2,9 @@ import React, { useState } from "react";
 
 function CreateGroup() {
   const [groupName, setGroupName] = useState("");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  // ✅ LOGIN (required for session)
+  // ✅ LOGIN FUNCTION
   const login = () => {
     fetch("https://itse-2374-app-4-back-s4gw.onrender.com/api/users/login", {
       method: "POST",
@@ -16,33 +17,37 @@ function CreateGroup() {
         password: "Password1",
       }),
     })
-      .then(async (res) => {
-        console.log("Login status:", res.status);
-  
-        const data = await res.json();
-  
-        if (!res.ok) {
-          throw new Error(data.message || "Login failed");
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("Login response:", data);
+
+        if (data.success) {
+          setIsLoggedIn(true); // ✅ mark user as logged in
+          alert("Login successful");
+        } else {
+          alert(data.message || "Login failed");
         }
-  
-        return data;
-      })
-      .then(() => {
-        alert("Login successful");
       })
       .catch((err) => {
         console.error(err);
-        alert(err.message);
+        alert("Login failed");
       });
   };
 
-  // ✅ CREATE GROUP
+  // ✅ CREATE GROUP FUNCTION
   const createGroup = () => {
-    if (!groupName.trim()) {
+    // 🚫 BLOCK if not logged in
+    if (!isLoggedIn) {
+      alert("Please login first");
+      return;
+    }
+
+    // 🚫 BLOCK empty or spaces-only input
+    if (!groupName || groupName.trim().length === 0) {
       alert("Group name is required");
       return;
     }
-  
+
     fetch("https://itse-2374-app-4-back-s4gw.onrender.com/api/groups", {
       method: "POST",
       headers: {
@@ -50,28 +55,31 @@ function CreateGroup() {
       },
       credentials: "include",
       body: JSON.stringify({
-        group_name: groupName,
+        group_name: groupName.trim(), // ✅ clean input
       }),
     })
-      .then(async (res) => {
-        console.log("Create status:", res.status);
-  
-        const data = await res.json();
-  
-        if (!res.ok) {
-          throw new Error(data.message || "Request failed");
-        }
-  
-        return data;
+      .then((res) => {
+        console.log("Status:", res.status);
+        return res.json();
       })
       .then((data) => {
-        console.log("Create response:", data);
-        alert("Group created successfully");
-        setGroupName("");
+        console.log("Response:", data);
+
+        if (data.success) {
+          alert("Group created successfully");
+          setGroupName(""); // optional reset
+        } else {
+          // ✅ handle backend validation errors properly
+          if (data.errors && data.errors.length > 0) {
+            alert(data.errors[0]);
+          } else {
+            alert(data.message || "Error occurred");
+          }
+        }
       })
       .catch((err) => {
         console.error(err);
-        alert(err.message);
+        alert("Server error");
       });
   };
 
@@ -79,12 +87,12 @@ function CreateGroup() {
     <div>
       <h2>Create Group</h2>
 
-      {/* 🔹 LOGIN BUTTON */}
+      {/* ✅ LOGIN BUTTON */}
       <button onClick={login}>Login First</button>
 
       <br /><br />
 
-      {/* 🔹 INPUT */}
+      {/* ✅ INPUT FIELD */}
       <input
         type="text"
         placeholder="Enter Group Name"
@@ -94,7 +102,7 @@ function CreateGroup() {
 
       <br /><br />
 
-      {/* 🔹 CREATE BUTTON */}
+      {/* ✅ CREATE BUTTON */}
       <button onClick={createGroup}>Create Group</button>
     </div>
   );
