@@ -30,3 +30,25 @@ Front-End Development Tasks
 16) Add code to showcase any other errors that can include network or server issues (1 Days) 0% Complete, No issues
 
 Sunil Thakur - This is my first edit
+
+User Story #14 A user lists all their message groups by clicking on "List Groups" from the main menu. The list includes group name.
+Front End Development Tasks
+1.	Create "List Groups" button/menu option in the main UI. (1 days)
+- 100% Complete, No issue
+2.	Create a component to display the list of groups. (1 day)
+- 100% Complete, No issue 
+3.	Write code to store and manage group list data using React state. (1 days)
+- 20% Complete, initial state setup done 
+4.	Implement login check to ensure only authenticated users can view groups. (1 days)
+- 100% Complete 
+5.	Create API call (HTTP GET) to backend endpoint to fetch user groups. (1 day)
+- 0% Complete, waiting on backend API confirmation 
+6.	Handle backend response and parse group data. (1 days)
+- 0% Complete, dependent on API integration 
+7.	Display list of group names dynamically in the UI. (1 days)
+- 0% Complete, dependent on API data 
+8.	Display message when no groups are available. (1 days)
+- 0% Complete, not started 
+9.	Handle error responses and display messages. (1 days)
+- 0% Complete, not started
+

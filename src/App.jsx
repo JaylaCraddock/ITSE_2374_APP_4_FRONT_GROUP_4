@@ -1,10 +1,10 @@
-import UserList from "./UserList";
+import React from "react";
+import CreateGroup from "./CreateGroup";
 
 function App() {
   return (
     <div>
-      <h1>User Story #7 - Block User implemented</h1>
-      <UserList />
+      <CreateGroup />
     </div>
   );
 }
