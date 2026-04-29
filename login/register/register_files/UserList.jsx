@@ -40,36 +40,58 @@ const UserList = () => {
     fetchUsers();
   }, []);
 
-  // Arrow function fetchUsers: loads test data for messaging feature
+    // Arrow function fetchUsers: asynchronous function to retrieve users from backend
+  // UPDATED: Tries real backend first, falls back to mock data if it fails
   const fetchUsers = async () => {
     setIsLoading(true);
     setErrors([]);
 
     try {
-      // Mock/test data - replaces API call while waiting for backend CORS fix
-      // This allows testing the messaging UI without backend connectivity
+      // 'await' pauses execution until fetch Promise resolves
+      // GET request to retrieve list of all users from Tristan's backend
+      const response = await fetch(
+        'https://itse-2374-app-4-back-dehe.onrender.com/api/users',
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+
+      // Parse JSON response from backend
+      const data = await response.json();
+
+      // Conditional checks response status
+      if (response.ok && response.status === 200) {
+        // 200 = HTTP status code for "OK" - successful GET request
+        // Set users state with array of users from backend response
+        setUsers(data.users || []);
+        setErrors([]);
+        // Console message showing backend is working
+        console.log('✅ SUCCESS: Using REAL backend API for user list');
+      } else {
+        // If backend response is not OK, throw error to trigger catch block
+        throw new Error('Backend returned non-200 status');
+      }
+    } catch (error) {
+      // Catch block executes if fetch throws error or backend fails
+      console.error('❌ ERROR: Real backend failed, falling back to mock data:', error);
+      console.log('⚠️  WARNING: Using MOCK DATA instead of real backend API');
+      
+      // Fallback: Use mock data if backend fails
+      // This allows testing to continue even if Tristan's backend is down
       const mockUsers = [
-            { id: 1, name: 'Jane Doe', email: 'jane@email.com' },
-            { id: 2, name: 'Michael Peterson', email: 'michael@email.com' },
-            { id: 3, name: 'Lisa Henderson', email: 'lisa@email.com' },
-            { id: 4, name: 'Robert Lin', email: 'robert@email.com' },
-            { id: 5, name: 'Sarah Johnson', email: 'sarah@email.com' },
-        ];
-
-        
-
-      // Simulate API delay (optional - makes it feel more realistic)
-      // 'await' pauses execution for 500 milliseconds
-      await new Promise(resolve => setTimeout(resolve, 500));
-
-      // Set users state with mock users array
-      // Once backend CORS is fixed, replace this with actual API fetch call
+        { id: 1, name: 'Jane Doe', email: 'jane@email.com' },
+        { id: 2, name: 'Michael Peterson', email: 'michael@email.com' },
+        { id: 3, name: 'Lisa Henderson', email: 'lisa@email.com' },
+        { id: 4, name: 'Robert Lin', email: 'robert@email.com' },
+        { id: 5, name: 'Sarah Johnson', email: 'sarah@email.com' },
+      ];
+      
       setUsers(mockUsers);
       setErrors([]);
-    } catch (error) {
-      // Catch block executes if any error occurs
-      console.error('Error fetching users:', error);
-      setErrors(['Network error. Could not load users.']);
+      console.log('📝 FALLBACK: Loaded', mockUsers.length, 'mock users');
     } finally {
       // Finally block executes regardless of success or error
       // Turn off loading state

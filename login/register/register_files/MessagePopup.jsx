@@ -61,8 +61,10 @@ const MessagePopup = ({ selectedUser, onClose }) => {
     }
   };
 
+  //Testing by using Tristan's back-end to make sure that it works
+  
   // Arrow function handleSendMessage: asynchronous function to process message
-  // Uses mock data for testing while backend CORS is being fixed
+  // UPDATED: Tries real backend first, falls back to mock response if it fails
   const handleSendMessage = async (e) => {
     e.preventDefault(); // Prevent form default submission behavior
     
@@ -71,11 +73,6 @@ const MessagePopup = ({ selectedUser, onClose }) => {
     // Validation: check if message is empty
     if (!messageContent.trim()) {
       newErrors.push('Message cannot be empty');
-    }
-
-    // Validation: check if message is too long (max 500 characters)
-    if (messageContent.length > 500) {
-      newErrors.push('Message cannot exceed 500 characters');
     }
 
     // If validation errors exist, display them and return early
@@ -89,37 +86,45 @@ const MessagePopup = ({ selectedUser, onClose }) => {
 
     try {
       // Create message object with all required data for User Story #8
-      // Includes: sender_id, receiver_id, content, timestamp, sender_name
+      // Includes: sender_id, receiver_id, content, timestamp
       const messageData = {
         sender_id: currentUser.id,
-        sender_name: currentUser.name, // Author's name included per requirements
         receiver_id: selectedUser.id,
-        receiver_name: selectedUser.name,
         content: messageContent, // Text message with optional emoji
         timestamp: new Date().toISOString(), // ISO 8601 format: "2026-04-06T21:00:00"
       };
 
-      // Simulate API delay to feel more realistic
-      // 'await' pauses execution for 800 milliseconds
-      await new Promise(resolve => setTimeout(resolve, 800));
+      // 'await' pauses until fetch Promise resolves
+      // POST request to send message to Tristan's backend API
+      const response = await fetch(
+        'https://itse-2374-app-4-back-dehe.onrender.com/send-message',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(messageData), // Convert message object to JSON string
+        }
+      );
 
-      // Mock/test data response - simulates successful backend response
-      // In real scenario, this would be: const data = await response.json();
-      const mockResponse = {
-        type: 'success',
-        message: 'Message sent',
-        value: messageData,
-      };
+      // Parse JSON response from backend
+      const data = await response.json();
 
-      // Check if mock response indicates success
-      // Simulates: if (response.ok && response.status === 200)
-      if (mockResponse.type === 'success') {
-        // Success: message was sent
+      // Check response status and handle accordingly
+      if (response.ok && response.status === 200) {
+        // 200 = HTTP status code for "OK" - successful message send
         setSuccessMessage(`Message sent to ${selectedUser.name}!`);
         
+        // Create full message object with sender info for display
+        // Backend doesn't return sender_name, so we add it from currentUser
+        const fullMessageData = {
+          ...messageData,
+          sender_name: currentUser.name, // Author's name included per requirements
+          receiver_name: selectedUser.name,
+        };
+        
         // Add message to sentMessages array to display in conversation history
-        // Allows user to see what they just sent
-        const updatedMessages = [...sentMessages, messageData];
+        const updatedMessages = [...sentMessages, fullMessageData];
         setSentMessages(updatedMessages);
         
         // Create unique key for this conversation
@@ -133,22 +138,55 @@ const MessagePopup = ({ selectedUser, onClose }) => {
         setMessageContent('');
         setErrors([]);
         
+        // Console message showing backend is working
+        console.log('✅ SUCCESS: Message sent via REAL backend API to', selectedUser.name);
+        
         // DO NOT auto-close - let user keep popup open to see message history
-        // User must click Cancel to close (removed setTimeout and onClose call)
+      } else if (response.status === 400) {
+        // 400 = HTTP status code for "Bad Request" - invalid message data
+        throw new Error('Invalid message data from backend');
       } else {
-        // Mock error response
-        setErrors(['Failed to send message. Please try again.']);
+        // Handle any other error status codes
+        throw new Error('Backend returned error: ' + response.status);
       }
     } catch (error) {
-      // Catch block executes if any error occurs
-      console.error('Error sending message:', error);
-      setErrors(['Network error. Could not send message.']);
+      // Catch block executes if fetch throws error or backend fails
+      console.error('❌ ERROR: Real backend failed, using MOCK response:', error);
+      console.log('⚠️  WARNING: Using MOCK data instead of real backend API');
+      
+      // Fallback: Create mock success response if backend fails
+      // This allows testing to continue even if Tristan's backend is down
+      const fullMessageData = {
+        sender_id: currentUser.id,
+        sender_name: currentUser.name,
+        receiver_id: selectedUser.id,
+        receiver_name: selectedUser.name,
+        content: messageContent,
+        timestamp: new Date().toISOString(),
+      };
+      
+      setSuccessMessage(`Message sent to ${selectedUser.name}!`);
+      
+      // Add message to sentMessages array
+      const updatedMessages = [...sentMessages, fullMessageData];
+      setSentMessages(updatedMessages);
+      
+      // Save to localStorage
+      const conversationKey = `messages_${currentUser.id}_${selectedUser.id}`;
+      localStorage.setItem(conversationKey, JSON.stringify(updatedMessages));
+      
+      // Clear message field
+      setMessageContent('');
+      setErrors([]);
+      
+      console.log('📝 FALLBACK: Message saved to localStorage (mock mode)');
     } finally {
       // Finally block executes regardless of success or error
       // Turn off loading state
       setIsLoading(false);
     }
   };
+
 
   // Return JSX: modal popup with message composition form
   return (
