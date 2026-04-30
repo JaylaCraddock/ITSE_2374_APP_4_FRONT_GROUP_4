@@ -49,15 +49,15 @@ const UserList = () => {
     try {
       // 'await' pauses execution until fetch Promise resolves
       // GET request to retrieve list of all users from Tristan's backend
-      const response = await fetch(
-        'https://itse-2374-app-4-back-dehe.onrender.com/api/users',
-        {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        }
-      );
+      // const response = await fetch(
+      //   'https://itse-2374-app-4-back-dehe.onrender.com/api/users',
+      //   {
+      //     method: 'GET',
+      //     headers: {
+      //       'Content-Type': 'application/json',
+      //     },
+      //   }
+      // );
 
       // Parse JSON response from backend
       const data = await response.json();
