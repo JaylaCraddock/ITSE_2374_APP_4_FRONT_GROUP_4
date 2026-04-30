@@ -61,4 +61,15 @@ Front-End Development Tasks
 15) Add code to showcase success or failure message (1 Days) 100% complete, No issues
 16) Add code to showcase any other errors that can include network or server issues (1 Days) 100% complete, No issues
 
+Report for Jayla Craddock as of 4/29/26
+
+User Story #8
+ 
+A user posts a text message to an individual user by right-clicking a user's name in a list of user accounts and selecting "Post" from a popup menu. The user then fills in a text field on a popup window and clicks on a Send button. The message includes the author's name, the date and time, and may include an emoji.
+ 
+Front-End Development Tasks
+1) Create POST request for fetch (2 Days) - 75% complete, no issues
+2) Create mock-up user list just in case CORS policy blocks front-end from accessing the back-end for retrieval of user lists (2 Days) - 25% complete, no issues
+3) Send message object to backend endpoint (1 Days) - 75% complete, no issues
+
 Sunil Thakur - This is my first edit

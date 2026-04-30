@@ -156,28 +156,28 @@ const MessagePopup = ({ selectedUser, onClose }) => {
       
       // Fallback: Create mock success response if backend fails
       // This allows testing to continue even if Tristan's backend is down
-      const fullMessageData = {
-        sender_id: currentUser.id,
-        sender_name: currentUser.name,
-        receiver_id: selectedUser.id,
-        receiver_name: selectedUser.name,
-        content: messageContent,
-        timestamp: new Date().toISOString(),
-      };
+      // const fullMessageData = {
+      //   sender_id: currentUser.id,
+      //   sender_name: currentUser.name,
+      //   receiver_id: selectedUser.id,
+      //   receiver_name: selectedUser.name,
+      //   content: messageContent,
+      //   timestamp: new Date().toISOString(),
+      // };
       
-      setSuccessMessage(`Message sent to ${selectedUser.name}!`);
+      // setSuccessMessage(`Message sent to ${selectedUser.name}!`);
       
-      // Add message to sentMessages array
-      const updatedMessages = [...sentMessages, fullMessageData];
-      setSentMessages(updatedMessages);
+      // // Add message to sentMessages array
+      // const updatedMessages = [...sentMessages, fullMessageData];
+      // setSentMessages(updatedMessages);
       
-      // Save to localStorage
-      const conversationKey = `messages_${currentUser.id}_${selectedUser.id}`;
-      localStorage.setItem(conversationKey, JSON.stringify(updatedMessages));
+      // // Save to localStorage
+      // const conversationKey = `messages_${currentUser.id}_${selectedUser.id}`;
+      // localStorage.setItem(conversationKey, JSON.stringify(updatedMessages));
       
-      // Clear message field
-      setMessageContent('');
-      setErrors([]);
+      // // Clear message field
+      // setMessageContent('');
+      // setErrors([]);
       
       console.log('📝 FALLBACK: Message saved to localStorage (mock mode)');
     } finally {
