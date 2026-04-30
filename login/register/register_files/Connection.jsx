@@ -11,6 +11,7 @@ import RegistrationScreen from './RegisterScreen.jsx'
 import LoginScreen from './LoginScreen.jsx'
 import EmailConfirm from './EmailConfirmation.jsx'
 import Homepage from './Homepage.jsx'
+import UserList from './UserList.jsx'
 
 //private route components to protect homepage
 const PrivateRoute = ({ element }) => {
@@ -38,6 +39,10 @@ createRoot(document.getElementById('root')).render(
         <Route path='/verify-email' element={<EmailConfirm />} />
 
         <Route path='/homepage' element={<PrivateRoute element={<Homepage />} />} />
+
+        <Route path='/users' element={<PrivateRoute element={<UserList />} 
+        />} />
+       
       </Routes>
     </Router>
   </StrictMode>,
