@@ -142,7 +142,8 @@ const Homepage = () => {
         return (
             <div>
                 <h1>Error</h1>
-                <div role="alert" style={{ color: 'red' }}>
+                 {/* style={{ color: 'red' }}  */}
+                <div role="alert" >  
                     <ul>
                         {/* .map() array method: iterate through errors array */}
                         {errors.map((error, index) => (
