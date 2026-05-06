@@ -3,7 +3,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  /* background-color: #f0f2f5; Soft gray background like Meta */
+  background-color: #f0f2f5; /* Soft gray background like Meta */
   color: #1c1e21;
   display: flex;
   justify-content: center;
@@ -13,7 +13,7 @@ body {
 
 /* Container for Auth Screens (Login/Register) */
 div:has(form) {
-  background: #ffffff;
+  /* background: #ffffff; */
   padding: 40px;
   border-radius: 12px;
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
@@ -129,25 +129,27 @@ button[type="button"]:hover {
 }
 
 /* Alerts and Errors */
-[role="alert"] {
+/* [role="alert"] {
   background-color: #ffebe8;
-  /* border: 1px solid #dd3c10; */
+  border: 1px solid #dd3c10;
   border-radius: 4px;
   padding: 10px;
   margin-bottom: 20px;
-}
+} 
 
-[role="alert"] ul {
+*/
+
+/* [role="alert"] ul {
   margin: 0;
   padding: 0;
   list-style: none;
-}
+} */
 
-[role="alert"] li, [role="alert"] p {
+/* [role="alert"] li, [role="alert"] p {
   color: #dd3c10;
   font-size: 13px;
   text-align: left;
-}
+} */
 
 /* Homepage Specifics */
 .user-info-card {
