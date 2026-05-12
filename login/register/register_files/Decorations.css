@@ -16,7 +16,7 @@ html {
 
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: white;;
+  color: white;
   color: #2c3e50;
   line-height: 1.6;
   min-height: 100vh;
@@ -33,7 +33,7 @@ body {
 /* Main page container */
 div[style*="marginTop: '60px'"],
 div[style*="marginTop: '120px'"] {
-  background: white;
+  background: rgb(130, 75, 172);
   padding: 60px 40px;
   border-radius: 12px;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
