@@ -70,7 +70,7 @@ h1 {
 h2 {
   font-size: 2rem;
   font-weight: 600;
-  color: #2c3e50;
+   color: white;
   margin-bottom: 30px;
   text-align: center;
 }
@@ -78,20 +78,20 @@ h2 {
 h3 {
   font-size: 1.5rem;
   font-weight: 500;
-  color: black;
+  color: white;
   margin-bottom: 20px;
 }
 
 h4 {
   font-size: 1.1rem;
   font-weight: 600;
-  color: black;
+ color: white; 
   margin-bottom: 12px;
 }
 
 p {
   font-size: 1rem;
-  color: black;
+  color: white;
   margin-bottom: 15px;
   line-height: 1.7;
 }
@@ -106,7 +106,7 @@ small {
 label {
   font-size: 0.95rem;
   font-weight: 600;
-  color: black;
+ color: white;
   margin-bottom: 10px;
   display: block;
 }
