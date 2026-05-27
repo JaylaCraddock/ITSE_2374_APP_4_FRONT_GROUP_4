@@ -180,7 +180,7 @@ const UserList = () => {
             position: 'absolute',
             top: `${contextMenu.y}px`,
             left: `${contextMenu.x}px`,
-            backgroundColor: '#fff',
+            backgroundColor: '#303662',
             border: '1px solid #ccc',
             borderRadius: '4px',
             boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
@@ -232,16 +232,6 @@ const UserList = () => {
       <div style={{ marginTop: '30px', padding: '20px 0', borderTop: '1px solid #ccc' }}>
         <button
           onClick={handleBackToHomepage}
-          // style={{
-          //   padding: '10px 20px',
-          //   backgroundColor: '#2196F3',
-          //   color: 'white',
-          //   border: 'none',
-          //   borderRadius: '4px',
-          //   cursor: 'pointer',
-          //   fontSize: '14px',
-          //   fontWeight: 'bold',
-          // }}
         >
           Back to Homepage
         </button>

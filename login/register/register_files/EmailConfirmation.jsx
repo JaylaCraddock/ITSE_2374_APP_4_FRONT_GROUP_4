@@ -93,36 +93,52 @@ const EmailConfirm = () => {
 
   //What the user sees after clicking on the link
   return (
-    <div>
-      <h1>Email Verification</h1>
+    <div className="ec-page">
+      <h1 className="ec-title">Email Verification</h1>
 
       {verificationStatus === 'verifying' && (
-        <div>
-          <p>Verifying your email... Please wait.</p>
+        <div className="ec-card ec-card--neutral" role="status" aria-live="polite">
+          <p className="ec-text">Verifying your email... Please wait.</p>
+          <div className="ec-spinner" aria-hidden="true"></div>
         </div>
       )}
 
       {verificationStatus === 'success' && (
-        <div role="alert" style={{ color: 'green', border: '1px solid green', padding: '10px' }}>
-          <h2>✓ {message}</h2>
-          <p>Your email has been confirmed. You can now log in to your account.</p>
-          <button onClick={handleGoToLogin}>Go to Login</button>
+        <div className="ec-card ec-card--success" role="alert">
+          <h2 className="ec-heading">✓ {message}</h2>
+          <p className="ec-text">Your email has been confirmed. You can now log in to your account.</p>
+          <div className="ec-actions">
+            <button className="ec-btn ec-btn--primary" onClick={handleGoToLogin}>
+              Go to Login
+            </button>
+          </div>
         </div>
       )}
 
       {verificationStatus === 'error' && (
-        <div role="alert" style={{ color: 'red', border: '1px solid red', padding: '10px' }}>
-          <h2>✗ {message}</h2>
+        <div className="ec-card ec-card--error" role="alert">
+          <h2 className="ec-heading">✗ {message}</h2>
+
           {errorDetails.length > 0 && (
-            <ul>
+            <ul className="ec-list">
               {errorDetails.map((error, index) => (
-                <li key={index}>{error}</li>
+                <li className="ec-listItem" key={index}>
+                  {error}
+                </li>
               ))}
             </ul>
           )}
-          <p>Please try registering again or contact support if the problem persists.</p>
-          <button onClick={handleBackToRegister}>Back to Registration</button>
-          <button onClick={handleGoToLogin}>Go to Login</button>
+
+          <p className="ec-text">Please try registering again or contact support if the problem persists.</p>
+
+          <div className="ec-actions">
+            <button className="ec-btn ec-btn--ghost" onClick={handleBackToRegister}>
+              Back to Registration
+            </button>
+            <button className="ec-btn ec-btn--primary" onClick={handleGoToLogin}>
+              Go to Login
+            </button>
+          </div>
         </div>
       )}
     </div>
