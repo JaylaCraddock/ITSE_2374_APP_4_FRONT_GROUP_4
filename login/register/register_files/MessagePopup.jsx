@@ -207,7 +207,7 @@ const MessagePopup = ({ selectedUser, onClose }) => {
       {/* Modal popup container */}
       <div
         style={{
-          backgroundColor: '#fff',
+          backgroundColor: '#303662',
           padding: '20px',
           borderRadius: '8px',
           boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
@@ -242,7 +242,7 @@ const MessagePopup = ({ selectedUser, onClose }) => {
         {sentMessages.length > 0 && (
           <div 
             style={{
-              backgroundColor: '#f5f5f5',
+              backgroundColor: '#303662',
               padding: '10px',
               borderRadius: '4px',
               marginBottom: '15px',
@@ -257,7 +257,7 @@ const MessagePopup = ({ selectedUser, onClose }) => {
               <div 
                 key={index}
                 style={{
-                  backgroundColor: '#e3f2fd',
+                  backgroundColor: '#86bbe1',
                   padding: '10px',
                   marginBottom: '8px',
                   borderRadius: '4px',
@@ -268,7 +268,7 @@ const MessagePopup = ({ selectedUser, onClose }) => {
                 <strong>{msg.sender_name}:</strong> {msg.content}
                 <br />
                 {/* Display date and time of message */}
-                <small style={{ color: '#666' }}>
+                <small style={{ color: '#000000' }}>
                   {new Date(msg.timestamp).toLocaleString()}
                 </small>
               </div>
