@@ -7,11 +7,14 @@ import { BrowserRouter as Router } from 'react-router-dom'
 import { Routes } from 'react-router-dom'
 import { Route } from 'react-router-dom'
 import { Navigate } from 'react-router-dom'
+import './Decorations.css';
 import RegistrationScreen from './RegisterScreen.jsx'
 import LoginScreen from './LoginScreen.jsx'
 import EmailConfirm from './EmailConfirmation.jsx'
 import Homepage from './Homepage.jsx'
 import UserList from './UserList.jsx'
+
+// import "tailwindcss";
 
 //private route components to protect homepage
 const PrivateRoute = ({ element }) => {

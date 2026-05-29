@@ -144,8 +144,8 @@ const UserList = () => {
 
   // Return JSX: list of users and optional message popup
   return (
-    <div>
-      <h1>Users</h1>
+    <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+      <h1 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-blue-500">Users</h1>
 
       {/* Conditional rendering: display errors if any occurred */}
       {errors.length > 0 && (
@@ -160,7 +160,7 @@ const UserList = () => {
       )}
 
       {/* Unordered list of users */}
-      <ul>
+      <ul className="mt-10 text-center text-2m/9 tracking-tight text-black">
         {/* .map() array method: iterate through users array and render each user */}
         {users.map((user) => (
           <li
@@ -230,7 +230,7 @@ const UserList = () => {
 
       {/* Back to Homepage button - positioned at bottom */}
       <div style={{ marginTop: '30px', padding: '20px 0', borderTop: '1px solid #ccc' }}>
-        <button
+        <button  className="flex justify-center rounded-md bg-indigo-500 px-3 py-1.5 text-sm/6 font-semibold text-white hover:bg-indigo-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
           onClick={handleBackToHomepage}
         >
           Back to Homepage

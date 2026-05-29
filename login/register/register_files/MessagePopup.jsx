@@ -190,7 +190,7 @@ const MessagePopup = ({ selectedUser, onClose }) => {
 
   // Return JSX: modal popup with message composition form
   return (
-    <div
+    <div className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-blue-500"
       style={{
         position: 'fixed',
         top: 0,
@@ -207,7 +207,7 @@ const MessagePopup = ({ selectedUser, onClose }) => {
       {/* Modal popup container */}
       <div
         style={{
-          backgroundColor: '#303662',
+          backgroundColor: '#ffffff',
           padding: '20px',
           borderRadius: '8px',
           boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
@@ -242,7 +242,7 @@ const MessagePopup = ({ selectedUser, onClose }) => {
         {sentMessages.length > 0 && (
           <div 
             style={{
-              backgroundColor: '#303662',
+              backgroundColor: '#fefefe',
               padding: '10px',
               borderRadius: '4px',
               marginBottom: '15px',
@@ -257,7 +257,7 @@ const MessagePopup = ({ selectedUser, onClose }) => {
               <div 
                 key={index}
                 style={{
-                  backgroundColor: '#86bbe1',
+                  backgroundColor: '#fdfeff',
                   padding: '10px',
                   marginBottom: '8px',
                   borderRadius: '4px',

@@ -164,29 +164,29 @@ const Homepage = () => {
 
     // Return JSX: what the user sees on the homepage
     return (
-        <div>
+        <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
             {/* Personalized greeting in top right corner */}
             <div style={{ position: 'absolute', top: '10px', right: '10px' }}>
                 <h2>Hello, {user.name}!</h2>
             </div>
 
             {/* Main homepage content */}
-            <div style={{ marginTop: '60px' }}>
-                <h1>Welcome to your homepage</h1>
+            <div  style={{ marginTop: '60px' }}>
+                <h1 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-blue-500">Welcome to your homepage</h1>
                 
                 {/* Display user email */}
-                <p><strong>Email:</strong> {user.email}</p>
+                <p ><strong>Email:</strong> {user.email}</p>
 
                 {/* Button to navigate to user list and messaging feature */}
                 <button 
-                    onClick={handleViewUsers}
+                   className="flex justify-center rounded-md bg-indigo-500 px-3 py-1.5 text-sm/6 font-semibold text-white hover:bg-indigo-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500" onClick={handleViewUsers}
                     style={{ marginTop: '10px', marginRight: '10px', padding: '10px 20px' }}
                 >
                     View Users & Send Messages
                 </button>
 
                 {/* Logout button - clears session and returns to login */}
-                <button 
+                <button  className="flex justify-center rounded-md bg-indigo-500 px-3 py-1.5 text-sm/6 font-semibold text-white hover:bg-indigo-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
                     onClick={handleLogout}
                     style={{ marginTop: '10px', padding: '10px 20px' }}
                 >
