@@ -9,6 +9,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'
 import './Decorations.css';
+import pawImg from "./images/paw.png";
 
 //Arrow function creation for registration screen that includes
 // name, email and password
@@ -223,8 +224,8 @@ const handleGoToLogin = () => {
 //Display registration form
 // What the user will see on the website
 return (
-  <div>
-    <h1>User Registration</h1>
+  <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+    <h1 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-blue-500">User Registration</h1>
 
     
     {successMessage && (
@@ -243,10 +244,17 @@ return (
         </div>
     )}
 
+     {/* Image to add for logo */}
+                <div>
+                    <img src={pawImg} alt="Pawprint" className="mx-auto h-10 w-auto"
+     />
+                </div>
+    
 
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label htmlFor="name">Name:</label>
+   <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+    <form onSubmit={handleSubmit} className="space-y-4">
+      <div className="space-y-1">
+        <label htmlFor="name" className="block ">Name:</label>
         <input type="text"
         id="name"
         name="name"
@@ -255,12 +263,13 @@ return (
         placeholder="Enter your name"
         disabled={isLoading}
         maxLength="20"
+           className="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-black outline-1 -outline-offset-1 outline-black/20 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6"
          />
          <small>2-20 alphanumeric characters long can include spaces in name</small>
       </div>
 
-      <div>
-        <label htmlFor="email">Email:</label>
+      <div className="space-y-1">
+        <label htmlFor="email" className="block ">Email:</label>
         <input type="email"
         id="email"
         name="email"
@@ -268,12 +277,13 @@ return (
         onChange={handleChange}
         placeholder="Enter your email"
         disabled={isLoading}
+        className="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-black outline-1 -outline-offset-1 outline-black/20 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6"
          />
          <small>Must be a valid email format</small>
       </div>
 
-      <div>
-        <label htmlFor="password">Password:</label>
+      <div className="space-y-1">
+        <label htmlFor="password" className="block ">Password:</label>
         <input type="password"
         id="password"
         name="password"
@@ -282,20 +292,21 @@ return (
         placeholder="Enter your password"
         disabled={isLoading}
         maxLength="20"
+        className="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-black outline-1 -outline-offset-1 outline-black/20 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6"
          />
          <small>
           8-20 characters, must include uppercase, lowercase, and a number
          </small>
       </div>
 
-      <button type='submit' disabled={isLoading}>
+      <button type='submit' disabled={isLoading} className="flex w-full justify-center rounded-md bg-indigo-500 px-3 py-1.5 text-sm/6 font-semibold text-white hover:bg-indigo-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">
       {isLoading ? 'Registering...' : 'Register'}</button>
       
       {/* For switching to login screen */}
-      <p>Already have an account?</p>
-      <button type='button' onClick={handleGoToLogin}>Login</button>
+      <p className="font-semibold text-indigo-400 hover:text-indigo-300">Already have an account?</p>
+      <button className="flex w-full justify-center rounded-md bg-indigo-500 px-3 py-1.5 text-sm/6 font-semibold text-white hover:bg-indigo-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"  type='button' onClick={handleGoToLogin}>Login</button>
     </form>
-
+</div>
     </div>
   );
 

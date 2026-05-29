@@ -93,8 +93,8 @@ const EmailConfirm = () => {
 
   //What the user sees after clicking on the link
   return (
-    <div className="ec-page">
-      <h1 className="ec-title">Email Verification</h1>
+    <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+      <h1 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-blue-500">Email Verification</h1>
 
       {verificationStatus === 'verifying' && (
         <div className="ec-card ec-card--neutral" role="status" aria-live="polite">
