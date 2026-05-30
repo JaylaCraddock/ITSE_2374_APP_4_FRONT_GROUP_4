@@ -3,8 +3,14 @@
 ITSE-2374 Spring 2026 - APP_4 front end code.
 APP_4 is a web application to be used for sending and receiving messages.
 
+# DEMO
+
+This is a demo of the Collin College Messaging Prototype app conducted by one the Front-end Develoeprs, Jayla Craddock. 
+
+
 Jayla Craddock - This is my first edit
 
+## Reports from both Jayla Craddock and Sunil Thakur
 Report for Jayla Craddock
 User Story #8
 
