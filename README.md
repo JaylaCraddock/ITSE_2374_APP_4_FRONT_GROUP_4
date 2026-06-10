@@ -1,12 +1,57 @@
-# ITSE_2374_APP_4_FRONT
+# ITSE_2374_APP_4_FRONT - Messaging Prototype Web Application
 
 ITSE-2374 Spring 2026 - APP_4 front end code.
-APP_4 is a web application to be used for sending and receiving messages.
+APP_4 is a web application to be used for sending messages.
 
-# DEMO
+# Demo
 
-This is a demo of the Collin College Messaging Prototype app conducted by one the Front-end Develoeprs, Jayla Craddock. 
+This is a demo of the Collin College Messaging Prototype app conducted by one the Front-end Developers, Jayla Craddock. 
 
+# Login Page
+
+The login page allows you to login in with any correctly formatted email and password. As the Web Application uses mock data for testing purposes.
+
+<img width="1440" height="778" alt="Image showcasing of login page that includes the email and password." src="https://github.com/user-attachments/assets/00fc9bd6-86d7-4ba6-a7fd-ad15084121db" />
+
+# Register Page
+
+The register page currently does not work right now as the back-end used for registration is disabled for the time being. The register page includes the name, email and password.
+
+<img width="1438" height="779" alt="Image of registration page that includes name, email and password." src="https://github.com/user-attachments/assets/c7337194-e155-4a17-8a91-aa0c5b330291" />
+
+# Homepage
+
+The homepage includes the name, email and a button that lets users access to their list of friends.
+
+<img width="1435" height="775" alt="Image of homepage that includes the name, email and button that leads user to to their list of friends." src="https://github.com/user-attachments/assets/8b65724f-d46a-4f93-bb0c-e12f93878048" />
+
+# List of Users
+
+The user list includes names of Jane Doe, Michael Peterson, Lisa Henderson, Robert Lin and Sarah Johnson.  
+
+<img width="1440" height="780" alt="Image of User List page that includes names of Jane Doe, Michael Peterson, Lisa Henderson, Robert Lin and Sarah Johnson." src="https://github.com/user-attachments/assets/ecc62d37-45cd-4978-9b2e-9d810d0bf55b" />
+
+# Message Box
+
+When a user selects another user by right clicking on their name they are taken to a message box where they can type out their message and include emojis.
+
+<img width="1439" height="774" alt="Image of message box that is about Jane Doe that displays the history and text box." src="https://github.com/user-attachments/assets/30ed6c15-54d2-48d2-81f9-51f167c8c35c" />
+
+Message that has an emoji
+
+<img width="506" height="624" alt="Image of message box that includes an message with an a puppy eyes emoji." src="https://github.com/user-attachments/assets/752a5e79-db0f-4160-b6d7-f887d475fe28" />
+
+
+
+## Prerequisites
+
+Before using the live demo I would suggest not to use the Register page as currently it does not work due to the back-end functionality not working.
+
+## Authors
+Front-End Developers - Jayla Craddock and Sunil Thakur
+Back-End Developers - Jose Eduardo Montilla Lugo and Tristan Mathieson
+
+## Information for ITSE 2374 - Software Development Project Class
 
 Jayla Craddock - This is my first edit
 
