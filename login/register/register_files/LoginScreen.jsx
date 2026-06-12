@@ -128,18 +128,18 @@ const LoginScreen = () => {
         <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
             <h1 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-blue-500">User Login</h1>
 
-            {USE_MOCK_AUTH && (
-  <div className="mt-4 rounded-md border border-yellow-400/40 bg-yellow-400/10 px-3 py-2 text-center text-sm text-black-200">
-    Mock Auth Mode is ON (no backend calls)
-  </div>
-)}
+  
 
 
 {/* Image to add for logo */}
             <div>
                 <img src={pawImg} alt="Pawprint" className="mx-auto h-10 w-auto"
  />
-            </div>
+            </div>          {USE_MOCK_AUTH && (
+  <div className="mt-4 rounded-md border border-yellow-400/40 bg-yellow-400/10 px-3 py-2 text-center text-sm text-black-200">
+    Mock Auth Mode is ON (no backend calls)
+  </div>
+)}
             {/* Conditional rendering: Display error list ONLY if errors array has items */}
             {/* Logical AND (&&) operator: if errors.length > 0 is true, render JSX after && */}
             {errors.length > 0 && (
