@@ -11,6 +11,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import './Decorations.css';
 import pawImg from "./images/paw.png";
+import { login, USE_MOCK_AUTH } from './services/auth'; 
 
 // Arrow function for login screen
 const LoginScreen = () => {
@@ -89,70 +90,31 @@ const LoginScreen = () => {
         setIsLoading(true);
 
         try {
-            // Try block executes code that might throw an error
-            // 'await' keyword pauses execution until fetch Promise is resolved
-            // fetch() method makes HTTP request to backend API endpoint
-            const response = await fetch(
-                'https://itse-2374-app-4-back-s4gw.onrender.com/api/users/login',
-                {
-                    method: 'POST',              // HTTP POST method for authentication
-                    headers: {
-                        'Content-Type': 'application/json', // HTTP header: tells server we're sending JSON
-                    },
-                    credentials: 'include',      // CRITICAL: tells browser to include session cookie in request
-                                                 // Browser automatically stores session_id cookie from response
-                    body: JSON.stringify(formData), // JSON.stringify() converts object to JSON string
-                }
-            );
-            
-            // 'await' pauses until response Promise resolves
-            // Parse JSON response from backend using .json() method
-            const data = await response.json();
+  const result = await login(formData);
 
-            // Conditional statement checks HTTP response status code
-            if (response.ok && response.status === 200) {
-                // 200 = HTTP status code for "OK" - successful login
-                // Backend returns user object with id, name, email, confirmed status, created_at
-                
-                // Store user info in localStorage for frontend reference
-                localStorage.setItem('user', JSON.stringify(data.user));
-                // Set flag indicating user is logged in
-                localStorage.setItem('isLoggedIn', 'true');
-                
-                // Note: Session cookie (session_id) is automatically stored by browser
-                // No need to manually save it - browser will send it in all future requests
-                // when credentials: 'include' is used in fetch options
-                
-                // Navigate to homepage using useNavigate hook
-                navigate('/homepage');
-            } else if (response.status === 400) {
-                // 400 = HTTP status code for "Bad Request" - validation error or invalid credentials
-                // Backend returns errors array with specific error messages
-                setErrors(data.errors || ['Email or password is incorrect']);
-            } else if (response.status === 500) {
-                // 500 = HTTP status code for "Internal Server Error" - database error
-                setErrors(['Server error. Please try again later.']);
-            } else {
-                // Fallback for any other error status codes
-                setErrors(['An error occurred. Please try again later.']);
-            }
-        } catch (error) {
-            // Catch block executes if try block throws error (network error, JSON parse error, etc.)
-            console.error('Error during login:', error);
-            
-            // Conditional checks if error is specifically a network/CORS issue
-            if (error.name === 'TypeError' && error.message === 'Failed to fetch') {
-                setErrors([
-                    'Unable to connect to the server. Please check your connection and try again.'
-                ]);
-            } else {
-                setErrors(['Network error. Please check your connection and try again.']);
-            }
-        } finally {
-            // Finally block executes regardless of success or error in try/catch
-            // Guaranteed cleanup - turn off loading state
-            setIsLoading(false);
-        }
+  if (result.ok && result.status === 200) {
+    localStorage.setItem('user', JSON.stringify(result.user));
+    localStorage.setItem('isLoggedIn', 'true');
+    navigate('/homepage');
+  } else if (result.status === 400) {
+    setErrors(result.errors || ['Email or password is incorrect']);
+  } else if (result.status === 500) {
+    setErrors(['Server error. Please try again later.']);
+  } else {
+    setErrors(['An error occurred. Please try again later.']);
+  }
+} catch (error) {
+  console.error('Error during login:', error);
+  if (error.name === 'TypeError' && error.message === 'Failed to fetch') {
+    setErrors([
+      'Unable to connect to the server. Please check your connection and try again.'
+    ]);
+  } else {
+    setErrors(['Network error. Please check your connection and try again.']);
+  }
+} finally {
+  setIsLoading(false);
+}
     };
 
     // Arrow function handleGoToRegister: navigates to registration page
@@ -166,6 +128,18 @@ const LoginScreen = () => {
         <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
             <h1 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-blue-500">User Login</h1>
 
+  
+
+
+{/* Image to add for logo */}
+            <div>
+                <img src={pawImg} alt="Pawprint" className="mx-auto h-10 w-auto"
+ />
+            </div>          {USE_MOCK_AUTH && (
+  <div className="mt-4 rounded-md border border-yellow-400/40 bg-yellow-400/10 px-3 py-2 text-center text-sm text-black-200">
+    Mock Auth Mode is ON (no backend calls)
+  </div>
+)}
             {/* Conditional rendering: Display error list ONLY if errors array has items */}
             {/* Logical AND (&&) operator: if errors.length > 0 is true, render JSX after && */}
             {errors.length > 0 && (
@@ -179,11 +153,7 @@ const LoginScreen = () => {
                 </div>
             )}
 
-            {/* Image to add for logo */}
-            <div>
-                <img src={pawImg} alt="Pawprint" className="mx-auto h-10 w-auto"
- />
-            </div>
+            
 
             {/* Login form controlled by React state */}
             <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">

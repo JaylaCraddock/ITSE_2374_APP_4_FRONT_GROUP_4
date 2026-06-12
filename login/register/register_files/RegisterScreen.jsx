@@ -226,6 +226,7 @@ const handleGoToLogin = () => {
 return (
   <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
     <h1 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-blue-500">User Registration</h1>
+   
 
     
     {successMessage && (
@@ -250,6 +251,9 @@ return (
      />
                 </div>
     
+ <div className="mt-4 rounded-md border border-yellow-400/40 bg-yellow-400/10 px-3 py-2 text-center text-sm text-black-200">
+      <h2>Currently this feature is not available, please switch to the login for Demo. </h2>
+    </div>
 
    <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
     <form onSubmit={handleSubmit} className="space-y-4">
